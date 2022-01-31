@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -23,12 +22,12 @@ public class TimeSchedule {
 	private Schedule schedule;
 
 	@NotNull
-	private LocalTime time;
+	private String time;
 
 	private boolean available;
 
 	public void consume() {
-		if(this.available) {
+		if(!this.available) {
 			throw new InfraException("A agenda está indisponível.");
 		}
 		this.available = false;

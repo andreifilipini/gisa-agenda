@@ -15,9 +15,6 @@ import javax.ws.rs.QueryParam;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.gisa.gisacore.util.DateUtil.simpleDate;
-import static com.gisa.gisacore.util.DateUtil.simpleTime;
-
 @RestController
 @RequestMapping("/agenda")
 public class ScheduleController {
@@ -39,11 +36,11 @@ public class ScheduleController {
 
     private ScheduleDTO toDTO(Schedule schedule) {
         return ScheduleDTO.builder()
-                .date(schedule.getDate().format(simpleDate))
+                .date(schedule.getDate())
                 .timesSchedule(
                         schedule.getTimesSchedule().stream().map(
                                 timeSchedule -> TimeScheduleDTO.builder()
-                                        .time(timeSchedule.getTime().format(simpleTime))
+                                        .time(timeSchedule.getTime())
                                         .available(timeSchedule.isAvailable())
                                         .build())
                                 .collect(Collectors.toList()))

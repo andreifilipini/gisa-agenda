@@ -1,8 +1,8 @@
 package com.gisa.gisaplanos.messages;
 
-import com.gisa.gisacore.util.DateUtil;
-import com.gisa.gisaplanos.dto.SchedulingRequestDTO;
 import com.gisa.gisacore.dto.BasicTransactionResponseDTO;
+import com.gisa.gisacore.exception.InfraException;
+import com.gisa.gisaplanos.dto.SchedulingRequestDTO;
 import com.gisa.gisaplanos.model.service.ScheduleService;
 import com.google.gson.Gson;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -29,12 +29,16 @@ public class BookingConsumer {
     private void receive(@Payload String body) {
         Gson gson = new Gson();
         SchedulingRequestDTO request = gson.fromJson(body, SchedulingRequestDTO.class);
+        BasicTransactionResponseDTO response;
+        try {
+            scheduleService.schedule(request.getResourceId(),
+                    request.getDate(),
+                    request.getTime());
 
-        scheduleService.schedule(request.getResourceId(),
-                DateUtil.toSimplelLocalDate(request.getDate()),
-                DateUtil.toSimplelLocalTime(request.getTime()));
-
-        BasicTransactionResponseDTO response = new BasicTransactionResponseDTO(request.getTransactionId(), true);
+             response = new BasicTransactionResponseDTO(request.getTransactionId(), true);
+        } catch (InfraException ie) {
+            response = new BasicTransactionResponseDTO(request.getTransactionId(), false);
+        }
         rabbitTemplate.convertAndSend(this.bookingScheduleResultQueueName, gson.toJson(response));
     }
 }

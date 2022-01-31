@@ -1,5 +1,6 @@
 package com.gisa.gisaplanos.model.service;
 
+import com.gisa.gisacore.exception.InfraException;
 import com.gisa.gisacore.util.StringUtil;
 import com.gisa.gisaplanos.model.Schedule;
 import com.gisa.gisaplanos.model.TimeSchedule;
@@ -8,8 +9,6 @@ import com.gisa.gisaplanos.model.repository.TimeScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,33 +27,40 @@ public class ScheduleService {
 				: repository.findByResourceId(resourceId);
 	}
 
-	public void schedule(String resourceId, LocalDate localDate, LocalTime localTime) {
-		Schedule schedule = find(resourceId, localDate);
-		TimeSchedule timeSchedule = findTimeSchedule(schedule, localTime);
+	public void schedule(String resourceId, String date, String time) {
+		Schedule schedule = find(resourceId, date);
+		TimeSchedule timeSchedule = findTimeSchedule(schedule, time);
 
+		if (timeSchedule == null) {
+			throw new InfraException("A agenda não foi encontrada.");
+		}
 		timeSchedule.consume();
 
 		timeScheduleRepository.save(timeSchedule);
 	}
 
-	public void cancelSchedule(String resourceId, LocalDate localDate, LocalTime localTime) {
-		Schedule schedule = find(resourceId, localDate);
-		TimeSchedule timeSchedule = findTimeSchedule(schedule, localTime);
+	public void cancelSchedule(String resourceId, String date, String time) {
+		Schedule schedule = find(resourceId, date);
+		TimeSchedule timeSchedule = findTimeSchedule(schedule, time);
+
+		if (timeSchedule == null) {
+			throw new InfraException("A agenda não foi encontrada.");
+		}
 
 		timeSchedule.release();
 
 		timeScheduleRepository.save(timeSchedule);
 	}
 
-	private Schedule find(String resourceId, LocalDate localDate) {
-		return StringUtil.isBlank(resourceId) && localDate != null
-				? repository.findByResourceIdAndDate(resourceId, localDate)
+	private Schedule find(String resourceId, String date) {
+		return StringUtil.isNotBlank(resourceId) && StringUtil.isNotBlank(date)
+				? repository.findByResourceIdAndDate(resourceId, date)
 				: null;
 	}
 
-	private TimeSchedule findTimeSchedule(Schedule schedule, LocalTime localTime) {
-		return schedule != null && localTime != null
-				? timeScheduleRepository.findByScheduleAndTime(schedule, localTime)
+	private TimeSchedule findTimeSchedule(Schedule schedule, String time) {
+		return schedule != null && time != null
+				? timeScheduleRepository.findByScheduleAndTime(schedule, time)
 				: null;
 	}
 }

@@ -1,7 +1,7 @@
 package com.gisa.gisaplanos.messages;
 
 import com.gisa.gisacore.dto.BasicTransactionResponseDTO;
-import com.gisa.gisacore.util.DateUtil;
+import com.gisa.gisacore.exception.InfraException;
 import com.gisa.gisaplanos.dto.SchedulingRequestDTO;
 import com.gisa.gisaplanos.model.service.ScheduleService;
 import com.google.gson.Gson;
@@ -29,12 +29,15 @@ public class CancelScheduleConsumer {
     private void receive(@Payload String body) {
         Gson gson = new Gson();
         SchedulingRequestDTO request = gson.fromJson(body, SchedulingRequestDTO.class);
-
+        BasicTransactionResponseDTO response;
+        try {
         scheduleService.cancelSchedule(request.getResourceId(),
-                DateUtil.toSimplelLocalDate(request.getDate()),
-                DateUtil.toSimplelLocalTime(request.getTime()));
-
-        BasicTransactionResponseDTO response = new BasicTransactionResponseDTO(request.getTransactionId(), true);
+                request.getDate(),
+                request.getTime());
+            response = new BasicTransactionResponseDTO(request.getTransactionId(), true);
+        } catch (InfraException ie) {
+            response = new BasicTransactionResponseDTO(request.getTransactionId(), false);
+        }
         rabbitTemplate.convertAndSend(this.cancelScheduleResultQueueName, gson.toJson(response));
     }
 }
