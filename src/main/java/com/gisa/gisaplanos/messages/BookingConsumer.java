@@ -3,7 +3,7 @@ package com.gisa.gisaplanos.messages;
 import com.gisa.gisacore.dto.BasicTransactionResponseDTO;
 import com.gisa.gisacore.exception.InfraException;
 import com.gisa.gisaplanos.dto.SchedulingRequestDTO;
-import com.gisa.gisaplanos.model.service.ScheduleService;
+import com.gisa.gisaplanos.service.ScheduleService;
 import com.google.gson.Gson;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

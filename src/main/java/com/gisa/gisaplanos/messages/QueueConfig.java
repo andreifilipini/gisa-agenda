@@ -23,14 +23,10 @@ public class QueueConfig {
     @Value("${queue.cancelSchedule}")
     private String cancelScheduleQueueName;
 
-    @Value("${queue.cancelScheduleResult}")
-    private String cancelScheduleResultQueueName;
-
     @PostConstruct
     protected void createQueues() {
         amqpAdmin.declareQueue(new Queue(this.bookingScheduleQueueName, true));
         amqpAdmin.declareQueue(new Queue(this.bookingScheduleResultQueueName, true));
         amqpAdmin.declareQueue(new Queue(this.cancelScheduleQueueName, true));
-        amqpAdmin.declareQueue(new Queue(this.cancelScheduleResultQueueName, true));
     }
 }

@@ -4,14 +4,14 @@ import com.gisa.gisacore.exception.InfraException;
 import com.gisa.gisaplanos.dto.ScheduleDTO;
 import com.gisa.gisaplanos.dto.TimeScheduleDTO;
 import com.gisa.gisaplanos.model.Schedule;
-import com.gisa.gisaplanos.model.service.ScheduleService;
+import com.gisa.gisaplanos.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.QueryParam;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +23,7 @@ public class ScheduleController {
     private ScheduleService scheduleService;
 
     @GetMapping
-    public ResponseEntity<List<ScheduleDTO>> findAll(@QueryParam("resourceId") String resourceId) {
+    public ResponseEntity<List<ScheduleDTO>> findAll(@RequestParam("resourceId") String resourceId) {
         try {
             return ResponseEntity.ok(
                     scheduleService.findTimeSchedule(resourceId).stream()

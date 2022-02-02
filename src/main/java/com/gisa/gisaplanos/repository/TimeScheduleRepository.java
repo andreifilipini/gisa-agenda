@@ -1,4 +1,4 @@
-package com.gisa.gisaplanos.model.repository;
+package com.gisa.gisaplanos.repository;
 
 import com.gisa.gisaplanos.model.Schedule;
 import com.gisa.gisaplanos.model.TimeSchedule;

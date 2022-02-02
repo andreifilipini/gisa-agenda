@@ -9,9 +9,9 @@
 		<version>2.6.2</version>
 	</parent>
 	<groupId>com.gisa</groupId>
-	<artifactId>gisa-agenda</artifactId>
+	<artifactId>gisa-agendamento</artifactId>
 	<version>0.0.1</version>
-	<name>gisa-agenda</name>
+	<name>gisa-agendamento</name>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
