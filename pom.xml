@@ -9,9 +9,9 @@
 		<version>2.6.2</version>
 	</parent>
 	<groupId>com.gisa</groupId>
-	<artifactId>gisa-agendamento</artifactId>
+	<artifactId>gisa-agenda</artifactId>
 	<version>0.0.1</version>
-	<name>gisa-agendamento</name>
+	<name>gisa-agenda</name>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -66,6 +66,12 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.8.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.25</version>
 		</dependency>
 
 	</dependencies>

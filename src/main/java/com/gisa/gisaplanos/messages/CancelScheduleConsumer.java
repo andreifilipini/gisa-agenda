@@ -1,11 +1,11 @@
 package com.gisa.gisaplanos.messages;
 
-import com.gisa.gisacore.exception.InfraException;
-import com.gisa.gisacore.util.StringUtil;
+import com.gisa.gisacore.messages.AbstractRabbitConsumer;
 import com.gisa.gisaplanos.dto.SchedulingRequestDTO;
 import com.gisa.gisaplanos.service.ScheduleService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -13,10 +13,9 @@ import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 
-
 @Slf4j
 @Component
-public class CancelScheduleConsumer {
+public class CancelScheduleConsumer extends AbstractRabbitConsumer {
 
     @Inject
     private RabbitTemplate rabbitTemplate;
@@ -25,29 +24,21 @@ public class CancelScheduleConsumer {
     private ScheduleService scheduleService;
 
     @RabbitListener(queues = {"${queue.cancelSchedule}"})
-    private void receive(@Payload String body) {
+    protected void receive(@Payload String body) {
+        executeLoggin(body);
+    }
+
+    @Override
+    protected void execute(@Payload String body) {
         Gson gson = new Gson();
-        try {
-            SchedulingRequestDTO request = gson.fromJson(body, SchedulingRequestDTO.class);
-            scheduleService.cancelSchedule(request.getResourceId(),
-                    request.getDate(),
-                    request.getTime());
-        } catch (InfraException ie) {
-            logWarn(ie.getMessage(), body);
-        } catch (Exception e) {
-            logError(e.getMessage(), body);
-        }
+        SchedulingRequestDTO request = gson.fromJson(body, SchedulingRequestDTO.class);
+        scheduleService.cancelSchedule(request.getResourceId(),
+                request.getDate(),
+                request.getTime());
     }
 
-    private void logWarn(String message, String body) {
-        log.warn(formatErrorMessage(message, body));
-    }
-
-    private void logError(String message, String body) {
-        log.error(formatErrorMessage(message, body));
-    }
-
-    private String formatErrorMessage(String message, String body) {
-        return String.format("message: %s; body: %s", message, StringUtil.isBlank(body) ? "null" : body);
+    @Override
+    protected Logger getLogger() {
+        return log;
     }
 }
