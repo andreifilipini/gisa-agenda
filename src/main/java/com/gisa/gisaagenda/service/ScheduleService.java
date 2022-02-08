@@ -1,11 +1,11 @@
-package com.gisa.gisaplanos.service;
+package com.gisa.gisaagenda.service;
 
+import com.gisa.gisaagenda.model.TimeSchedule;
 import com.gisa.gisacore.exception.InfraException;
 import com.gisa.gisacore.util.StringUtil;
-import com.gisa.gisaplanos.model.Schedule;
-import com.gisa.gisaplanos.model.TimeSchedule;
-import com.gisa.gisaplanos.repository.ScheduleRepository;
-import com.gisa.gisaplanos.repository.TimeScheduleRepository;
+import com.gisa.gisaagenda.model.Schedule;
+import com.gisa.gisaagenda.repository.ScheduleRepository;
+import com.gisa.gisaagenda.repository.TimeScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

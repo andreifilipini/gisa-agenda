@@ -1,4 +1,4 @@
-package com.gisa.gisaplanos.model;
+package com.gisa.gisaagenda.model;
 
 import com.gisa.gisacore.exception.InfraException;
 import lombok.Getter;

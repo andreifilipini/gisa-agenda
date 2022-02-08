@@ -1,4 +1,4 @@
-package com.gisa.gisaplanos.dto;
+package com.gisa.gisaagenda.dto;
 
 import lombok.Builder;
 import lombok.Getter;

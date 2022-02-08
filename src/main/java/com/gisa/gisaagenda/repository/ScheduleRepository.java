@@ -1,6 +1,6 @@
-package com.gisa.gisaplanos.repository;
+package com.gisa.gisaagenda.repository;
 
-import com.gisa.gisaplanos.model.Schedule;
+import com.gisa.gisaagenda.model.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

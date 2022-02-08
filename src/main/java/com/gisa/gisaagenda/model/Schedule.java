@@ -1,4 +1,4 @@
-package com.gisa.gisaplanos.model;
+package com.gisa.gisaagenda.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,10 +1,10 @@
-package com.gisa.gisaplanos.messages;
+package com.gisa.gisaagenda.messages;
 
+import com.gisa.gisaagenda.service.ScheduleService;
 import com.gisa.gisacore.dto.BasicTransactionResponseDTO;
 import com.gisa.gisacore.exception.InfraException;
 import com.gisa.gisacore.messages.AbstractRabbitConsumer;
-import com.gisa.gisaplanos.dto.SchedulingRequestDTO;
-import com.gisa.gisaplanos.service.ScheduleService;
+import com.gisa.gisaagenda.dto.SchedulingRequestDTO;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;

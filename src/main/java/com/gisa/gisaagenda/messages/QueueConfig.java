@@ -1,4 +1,4 @@
-package com.gisa.gisaplanos.messages;
+package com.gisa.gisaagenda.messages;
 
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Queue;

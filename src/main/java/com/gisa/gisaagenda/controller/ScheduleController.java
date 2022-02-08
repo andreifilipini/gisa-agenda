@@ -1,10 +1,10 @@
-package com.gisa.gisaplanos.controller;
+package com.gisa.gisaagenda.controller;
 
+import com.gisa.gisaagenda.dto.TimeScheduleDTO;
+import com.gisa.gisaagenda.service.ScheduleService;
 import com.gisa.gisacore.exception.InfraException;
-import com.gisa.gisaplanos.dto.ScheduleDTO;
-import com.gisa.gisaplanos.dto.TimeScheduleDTO;
-import com.gisa.gisaplanos.model.Schedule;
-import com.gisa.gisaplanos.service.ScheduleService;
+import com.gisa.gisaagenda.dto.ScheduleDTO;
+import com.gisa.gisaagenda.model.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

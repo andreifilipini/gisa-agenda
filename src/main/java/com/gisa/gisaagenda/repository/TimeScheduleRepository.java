@@ -1,7 +1,7 @@
-package com.gisa.gisaplanos.repository;
+package com.gisa.gisaagenda.repository;
 
-import com.gisa.gisaplanos.model.Schedule;
-import com.gisa.gisaplanos.model.TimeSchedule;
+import com.gisa.gisaagenda.model.Schedule;
+import com.gisa.gisaagenda.model.TimeSchedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TimeScheduleRepository extends JpaRepository<TimeSchedule, Long> {
