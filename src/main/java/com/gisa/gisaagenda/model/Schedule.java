@@ -22,6 +22,6 @@ public class Schedule {
 	@NotNull
 	private String date;
 
-	@OneToMany(mappedBy = "schedule")
+	@OneToMany(mappedBy = "schedule", fetch = FetchType.EAGER)
 	private List<TimeSchedule> timesSchedule;
 }
